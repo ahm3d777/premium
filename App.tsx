@@ -28,42 +28,63 @@ const SplashScreen = () => (
   <div className="fixed inset-0 z-[100] bg-brand-dark flex flex-col items-center justify-center animate-fade-out" style={{ animationDelay: '1.2s', pointerEvents: 'none' }}>
     
     <div className="relative mb-14">
-       <div className="absolute inset-0 bg-brand-crimson blur-[80px] opacity-20 animate-pulse"></div>
-       <div className="relative w-40 h-40 flex items-center justify-center z-10 drop-shadow-2xl">
-          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-2xl">
+       {/* Ambient Glow */}
+       <div className="absolute inset-0 bg-brand-crimson blur-[120px] opacity-20 animate-pulse-slow"></div>
+       <div className="absolute -inset-20 bg-brand-gold blur-[150px] opacity-10 animate-float"></div>
+       
+       <div className="relative w-44 h-44 md:w-52 md:h-52 flex items-center justify-center z-10">
+          {/* New Luxury PK Crest */}
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-[0_0_30px_rgba(212,13,54,0.4)]">
               <defs>
-                <linearGradient id="shield-modern-splash" x1="32" y1="0" x2="32" y2="64" gradientUnits="userSpaceOnUse">
+                <linearGradient id="crest-gradient" x1="32" y1="0" x2="32" y2="64" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#D40D36" />
-                  <stop offset="1" stopColor="#8A0822" />
+                  <stop offset="0.5" stopColor="#A50044" />
+                  <stop offset="1" stopColor="#050505" />
+                </linearGradient>
+                <linearGradient id="gold-shimmer" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                   <stop stopColor="#CFA238" />
+                   <stop offset="0.5" stopColor="#FAFAFA" />
+                   <stop offset="1" stopColor="#CFA238" />
                 </linearGradient>
               </defs>
-              <path d="M32 2L58 14V34C58 50 46 60 32 64C18 60 6 50 6 34V14L32 2Z" fill="url(#shield-modern-splash)" stroke="white" strokeWidth="1.5" />
-              <path d="M32 2V64C46 60 58 50 58 34V14L32 2Z" fill="black" fillOpacity="0.2" />
-              <g transform="translate(17, 22)">
-                 <path d="M0 0H8C12 0 14 2 14 5C14 7 12 9 9 9H2V11H10C13 11 15 13 15 16C15 19 13 21 9 21H0V0Z" fill="white" />
-                 <path d="M18 0H24C29 0 32 4 32 10.5C32 17 29 21 24 21H18V0ZM22 17H24C26.5 17 28 15 28 10.5C28 6 26.5 4 24 4H22V17Z" fill="white" />
+              
+              {/* Shield Silhouette */}
+              <path d="M32 2L58 14V34C58 50 46 60 32 64C18 60 6 50 6 34V14L32 2Z" fill="url(#crest-gradient)" stroke="white" strokeWidth="0.5" strokeOpacity="0.2" />
+              
+              {/* Abstract P-K Interlock */}
+              <g className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
+                {/* Letter P shape */}
+                <path d="M24 18V46M24 18H36C40 18 43 20 43 24.5C43 29 40 31 36 31H24" stroke="white" strokeWidth="4" strokeLinecap="square" strokeLinejoin="miter" />
+                {/* Letter K kick shape */}
+                <path d="M34 31L44 46" stroke="#CFA238" strokeWidth="4" strokeLinecap="square" />
               </g>
-              <path d="M32 54L36 50L32 46L28 50L32 54Z" fill="#F59E0B" />
+              
+              {/* Center Detail Star */}
+              <path d="M32 5L34 9H30L32 5Z" fill="#CFA238" className="animate-pulse" />
           </svg>
        </div>
     </div>
 
-    <div className="flex flex-col items-center gap-1 mb-16">
-      <h1 className="font-heading font-black text-4xl tracking-[0.2em] leading-none text-white drop-shadow-lg">
+    <div className="flex flex-col items-center gap-1 mb-16 text-center px-6">
+      <h1 className="font-heading font-black text-4xl md:text-5xl tracking-[0.15em] leading-none text-white drop-shadow-lg uppercase">
         PREMIUM<span className="text-brand-crimson">KITS</span>
       </h1>
-      <p className="text-brand-gold text-[10px] uppercase tracking-[0.5em] font-bold opacity-80 mt-3">
-        Official Store
-      </p>
+      <div className="flex items-center gap-4 mt-4 w-full justify-center">
+         <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-brand-gold/40"></div>
+         <p className="text-brand-gold text-[9px] md:text-[10px] uppercase tracking-[0.6em] font-bold opacity-80 whitespace-nowrap">
+           ESTABLISHED 2025
+         </p>
+         <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-brand-gold/40"></div>
+      </div>
     </div>
     
-    <div className="relative w-64">
-      <div className="h-[2px] w-full bg-white/10 rounded-full overflow-hidden">
-        <div className="h-full bg-gradient-to-r from-brand-crimson to-brand-gold w-full origin-left animate-load-progress" style={{ animationDuration: '1.0s' }}></div>
+    <div className="relative w-64 md:w-80">
+      <div className="h-[2px] w-full bg-white/5 rounded-full overflow-hidden">
+        <div className="h-full bg-gradient-to-r from-brand-crimson via-brand-gold to-brand-crimson w-full origin-left animate-load-progress" style={{ animationDuration: '1.2s' }}></div>
       </div>
       
-      <div className="absolute top-1/2 w-6 h-6 text-white animate-ball-roll" style={{ animationDuration: '1.0s' }}>
-        <FootballIcon className="text-white drop-shadow-lg" />
+      <div className="absolute top-1/2 w-6 h-6 text-white animate-ball-roll" style={{ animationDuration: '1.2s' }}>
+        <FootballIcon className="text-white drop-shadow-2xl" />
       </div>
     </div>
   </div>
@@ -109,7 +130,7 @@ const App = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1400); // 30% reduction from 2000ms
+    }, 1400); 
     return () => clearTimeout(timer);
   }, []);
 

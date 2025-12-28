@@ -20,10 +20,9 @@ export const Home = () => {
     setIsVisible(true);
     const timer = setTimeout(() => setIsLoadingFeatured(false), 1200);
     
-    // Slide/Dissolve Loop Interval
     const heroTimer = setInterval(() => {
       setCurrentHeroIndex(prev => (prev + 1) % heroImages.length);
-    }, 5000); // 5 seconds total duration for each image state
+    }, 5000);
 
     const stockTimer = setInterval(() => {
       setStockRemaining(prev => Math.max(3, prev - (Math.random() > 0.8 ? 1 : 0)));
@@ -42,16 +41,16 @@ export const Home = () => {
   return (
     <div className="animate-fade-in overflow-hidden">
       
-      {/* Cinematic Hero Section with Slide-Dissolve Loop */}
-      <section className="relative h-screen min-h-[600px] w-full overflow-hidden flex items-center justify-center bg-brand-dark">
+      {/* Cinematic Hero Section */}
+      <section className="relative h-[90vh] md:h-screen min-h-[500px] w-full overflow-hidden flex items-center justify-center bg-brand-dark">
         <div className="absolute inset-0 z-0">
           {heroImages.map((img, index) => (
             <div 
               key={index}
-              className={`absolute inset-0 transition-all duration-[3000ms] ease-in-out transform ${
+              className={`absolute inset-0 transition-all duration-[2500ms] md:duration-[3000ms] ease-in-out transform ${
                 currentHeroIndex === index 
-                  ? 'opacity-60 scale-110 translate-x-0 blur-0' 
-                  : 'opacity-0 scale-125 translate-x-20 blur-sm'
+                  ? 'opacity-60 scale-105 md:scale-110 translate-x-0 blur-0' 
+                  : 'opacity-0 scale-115 md:scale-125 translate-x-10 md:translate-x-20 blur-sm'
               }`}
             >
               <img 
@@ -61,92 +60,89 @@ export const Home = () => {
               />
             </div>
           ))}
-          
-          {/* Permanent Gradients */}
           <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/40 to-transparent z-10"></div>
-          <div className="absolute inset-0 bg-brand-dark/30 mix-blend-multiply z-10"></div>
+          <div className="absolute inset-0 bg-brand-dark/20 mix-blend-multiply z-10"></div>
         </div>
         
-        <div className={`relative z-20 text-center max-w-6xl px-4 flex flex-col items-center transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <div className="mb-8 animate-float">
-             <span className="inline-flex items-center gap-3 py-2 px-6 border border-white/10 rounded-full bg-white/5 backdrop-blur-xl text-white text-xs font-bold uppercase tracking-[0.25em] shadow-2xl hover:bg-white/10 transition-colors cursor-default ring-1 ring-white/10">
-                <Star size={12} className="text-brand-gold fill-brand-gold" />
+        <div className={`relative z-20 text-center max-w-6xl px-6 md:px-4 flex flex-col items-center transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 md:translate-y-20 opacity-0'}`}>
+          <div className="mb-6 md:mb-8 animate-float">
+             <span className="inline-flex items-center gap-2.5 md:gap-3 py-1.5 md:py-2 px-5 md:px-6 border border-white/10 rounded-full bg-white/5 backdrop-blur-xl text-white text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] md:tracking-[0.25em] shadow-2xl">
+                <Star size={10} className="text-brand-gold fill-brand-gold" />
                 <span>Official 2025/26 Season</span>
-                <Star size={12} className="text-brand-gold fill-brand-gold" />
+                <Star size={10} className="text-brand-gold fill-brand-gold" />
              </span>
           </div>
 
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-heading font-black text-white mb-6 tracking-tighter leading-[0.9]">
-            <span className="block text-outline opacity-40 select-none uppercase">Authentic</span>
+          <h1 className="text-5xl md:text-8xl lg:text-9xl font-heading font-black text-white mb-6 tracking-tighter leading-[1] md:leading-[0.9]">
+            <span className="block text-outline opacity-40 select-none uppercase text-4xl md:text-7xl lg:text-8xl">Authentic</span>
             <span className="text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-gray-400 drop-shadow-2xl uppercase">
               Performance
             </span>
           </h1>
           
-          <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-light leading-relaxed animate-slide-up-delayed">
+          <p className="text-base md:text-xl text-gray-300 mb-8 md:mb-10 max-w-2xl mx-auto font-light leading-relaxed px-4">
             Sourced directly from Europe's elite clubs. Engineered for the athlete, designed for the fan.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-6 justify-center animate-slide-up-delayed" style={{ animationDelay: '0.4s' }}>
-            <Button onClick={() => navigateTo('shop')} variant="primary" className="min-w-[200px] border-none shadow-[0_0_40px_-10px_rgba(212,13,54,0.5)]">
+          <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center w-full px-6 sm:px-0">
+            <Button onClick={() => navigateTo('shop')} variant="primary" className="w-full sm:min-w-[200px] border-none shadow-xl h-14 md:h-12">
               Shop New Arrivals
             </Button>
-            <Button onClick={() => navigateTo('shop')} variant="outline" className="min-w-[200px] text-white border-white/20 hover:bg-white hover:text-brand-dark hover:border-white backdrop-blur-sm">
+            <Button onClick={() => navigateTo('shop')} variant="outline" className="w-full sm:min-w-[200px] text-white border-white/20 backdrop-blur-sm h-14 md:h-12">
               Explore Collections
             </Button>
           </div>
         </div>
 
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce opacity-50 z-20">
-           <span className="text-[10px] text-white uppercase tracking-widest">Scroll</span>
-           <div className="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
+        <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce opacity-50 z-20">
+           <div className="w-[1px] h-8 md:h-12 bg-gradient-to-b from-white to-transparent"></div>
         </div>
       </section>
 
       {/* Marquee Strip */}
-      <div className="bg-brand-crimson text-white overflow-hidden py-4 relative z-20 shadow-2xl rotate-0 md:-rotate-1 scale-105 border-y-4 border-brand-dark">
-        <div className="animate-marquee whitespace-nowrap flex gap-16 font-heading font-bold text-sm uppercase tracking-widest items-center">
-            {[...Array(10)].map((_, i) => (
+      <div className="bg-brand-crimson text-white overflow-hidden py-3 md:py-4 relative z-20 shadow-xl border-y-2 md:border-y-4 border-brand-dark">
+        <div className="animate-marquee whitespace-nowrap flex gap-10 md:gap-16 font-heading font-bold text-[10px] md:text-sm uppercase tracking-widest items-center">
+            {[...Array(6)].map((_, i) => (
                 <React.Fragment key={i}>
-                    <span className="flex items-center gap-4">
-                        <Flame size={16} className="animate-pulse" />
+                    <span className="flex items-center gap-3 md:gap-4">
+                        <Flame size={14} className="animate-pulse" />
                         Free Shipping Over ৳2,000
                     </span>
-                    <span className="text-brand-dark opacity-40">•</span>
-                    <span className="flex items-center gap-4">
-                        <ShieldCheck size={16} />
-                        Authentic Jersey Guarantee
+                    <span className="text-brand-dark opacity-30">•</span>
+                    <span className="flex items-center gap-3 md:gap-4">
+                        <ShieldCheck size={14} />
+                        Authentic Kit Guarantee
                     </span>
-                    <span className="text-brand-dark opacity-40">•</span>
-                    <span className="flex items-center gap-4">
-                        <Star size={16} fill="currentColor" />
-                        New 2025/26 Kits Available
+                    <span className="text-brand-dark opacity-30">•</span>
+                    <span className="flex items-center gap-3 md:gap-4">
+                        <Star size={14} fill="currentColor" />
+                        2025/26 Kits Available
                     </span>
-                    <span className="text-brand-dark opacity-40">•</span>
+                    <span className="text-brand-dark opacity-30">•</span>
                 </React.Fragment>
             ))}
         </div>
       </div>
 
       {/* Trending Section */}
-      <section className="py-24 bg-brand-offWhite relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <section className="py-16 md:py-24 bg-brand-offWhite relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 relative z-10">
           <Reveal>
-            <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-4 md:gap-6">
               <div>
-                <span className="flex items-center gap-2 text-brand-crimson font-bold text-xs uppercase tracking-[0.2em] mb-3">
-                   <div className="w-8 h-[2px] bg-brand-crimson"></div>
+                <span className="flex items-center gap-2 text-brand-crimson font-bold text-[10px] md:text-xs uppercase tracking-[0.2em] mb-2 md:mb-3">
+                   <div className="w-6 md:w-8 h-[2px] bg-brand-crimson"></div>
                    Weekly Drop
                 </span>
-                <h2 className="text-4xl md:text-5xl font-heading font-bold text-brand-dark">Trending Now</h2>
+                <h2 className="text-3xl md:text-5xl font-heading font-bold text-brand-dark">Trending Now</h2>
               </div>
-              <Button onClick={() => navigateTo('shop')} variant="ghost" className="group hover:bg-white border border-transparent hover:border-gray-200">
-                View All Jerseys <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              <Button onClick={() => navigateTo('shop')} variant="ghost" className="group h-10 px-0 md:px-6 hover:bg-transparent md:hover:bg-white text-xs font-bold">
+                View All Jerseys <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12 mb-20">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-3 md:gap-x-6 gap-y-8 md:gap-y-12 mb-16 md:mb-20">
             {isLoadingFeatured ? (
               [...Array(4)].map((_, i) => (
                 <ProductCardSkeleton key={i} />
@@ -162,121 +158,108 @@ export const Home = () => {
 
           {/* Special Edition - Messi MVP 2025 */}
           <Reveal>
-            <div className="relative w-full rounded-3xl overflow-hidden bg-brand-dark p-1 shadow-[0_30px_100px_-20px_rgba(0,0,0,0.5)]">
-              <div className="absolute inset-0 bg-gradient-to-r from-brand-crimson/30 via-brand-dark to-brand-royal opacity-50"></div>
+            <div className="relative w-full rounded-2xl md:rounded-3xl overflow-hidden bg-brand-dark p-0.5 md:p-1 shadow-2xl">
+              <div className="absolute inset-0 bg-gradient-to-r from-brand-crimson/20 via-brand-dark to-brand-royal opacity-40"></div>
               
-              <div className="relative bg-[#0A0A0C] rounded-[calc(1.5rem-2px)] grid grid-cols-1 lg:grid-cols-12 overflow-hidden border border-white/5">
+              <div className="relative bg-[#0A0A0C] rounded-[calc(1rem-1px)] md:rounded-[calc(1.5rem-2px)] grid grid-cols-1 lg:grid-cols-12 overflow-hidden border border-white/5">
                 
-                <div className="lg:col-span-5 relative h-80 lg:h-auto min-h-[500px] overflow-hidden bg-[#0D0D10]">
+                <div className="lg:col-span-5 relative h-72 md:h-96 lg:h-auto min-h-[350px] md:min-h-[500px] overflow-hidden bg-[#0D0D10]">
                     <div className="absolute inset-0 z-0">
                       <img 
                         src={ASSETS.UI.STADIUM_NIGHT}
-                        className="w-full h-full object-cover opacity-20 mix-blend-overlay"
-                        alt="Stadium Texture"
+                        className="w-full h-full object-cover opacity-15"
+                        alt="Stadium"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0C] via-transparent to-[#0A0A0C]"></div>
-                      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-brand-crimson/20 blur-[100px] rounded-full animate-pulse-slow"></div>
-                      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-brand-gold/10 blur-[100px] rounded-full animate-float-delayed"></div>
                     </div>
 
-                    <div className="absolute inset-0 flex items-center justify-center p-8 lg:p-12 z-10">
-                      <div className="relative group perspective-[1500px]">
-                        <div className="relative z-20 transition-transform duration-700 group-hover:[transform:rotateY(10deg)_rotateX(5deg)_scale(1.05)]">
+                    <div className="absolute inset-0 flex items-center justify-center p-6 z-10">
+                      <div className="relative group">
+                        <div className="relative z-20">
                           <img 
                             src={specialJersey.image} 
                             alt={specialJersey.name}
-                            className="w-full max-w-[320px] drop-shadow-[0_40px_60px_rgba(212,13,54,0.5)] animate-float"
+                            className="w-full max-w-[240px] md:max-w-[320px] drop-shadow-[0_20px_40px_rgba(212,13,54,0.4)] animate-float"
                           />
                         </div>
-                        
-                        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 whitespace-nowrap bg-white text-brand-dark font-heading font-black text-xl px-10 py-4 rounded-sm shadow-[0_15px_40px_rgba(255,255,255,0.2)] z-30 group-hover:scale-110 transition-transform duration-500 border-b-4 border-brand-crimson">
-                          <Trophy size={20} className="text-brand-gold animate-bounce" fill="currentColor" /> MESSI MVP 2025
+                        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 whitespace-nowrap bg-white text-brand-dark font-heading font-black text-base md:text-xl px-6 md:px-10 py-3 md:py-4 rounded-sm shadow-xl z-30 border-b-2 md:border-b-4 border-brand-crimson">
+                          <Trophy size={16} className="text-brand-gold md:w-5 md:h-5" fill="currentColor" /> MESSI MVP 2025
                         </div>
-
-                        <div className="absolute -inset-20 bg-gradient-to-tr from-brand-crimson/0 via-brand-crimson/5 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000 blur-2xl"></div>
                       </div>
                     </div>
                 </div>
 
-                <div className="lg:col-span-7 p-8 md:p-16 flex flex-col justify-center items-start relative overflow-hidden">
-                   <div className="absolute top-0 right-0 w-full h-full opacity-[0.03] pointer-events-none">
-                      <svg viewBox="0 0 100 100" className="w-full h-full fill-white">
-                        <circle cx="50" cy="50" r="40" />
-                        <circle cx="20" cy="30" r="15" />
-                        <circle cx="80" cy="70" r="25" />
-                      </svg>
-                   </div>
-
-                   <div className="inline-flex items-center gap-3 text-brand-gold font-bold text-xs uppercase tracking-[0.35em] mb-8 bg-brand-gold/10 px-5 py-2 rounded-full border border-brand-gold/30 backdrop-blur-md">
-                      <Sparkles size={14} fill="currentColor" className="animate-spin-slow" /> 
+                <div className="lg:col-span-7 p-6 md:p-10 lg:p-16 flex flex-col justify-center items-start relative overflow-hidden">
+                   <div className="inline-flex items-center gap-2.5 text-brand-gold font-bold text-[10px] md:text-xs uppercase tracking-[0.3em] mb-6 md:mb-8 bg-brand-gold/10 px-4 md:px-5 py-2 rounded-full border border-brand-gold/20 backdrop-blur-md">
+                      <Sparkles size={12} fill="currentColor" /> 
                       COMMEMORATIVE DROPS
                    </div>
                    
-                   <h2 className="text-5xl md:text-7xl font-heading font-black text-white mb-8 leading-[0.95] tracking-tighter">
+                   <h2 className="text-4xl md:text-7xl font-heading font-black text-white mb-6 md:mb-8 leading-[1] tracking-tighter uppercase">
                       THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-500">MVP</span> <br/>
                       <span className="text-brand-crimson">LEGACY.</span>
                    </h2>
 
-                   <p className="text-gray-400 text-lg mb-10 max-w-xl leading-relaxed">
-                      Lionel Messi 2025 MVP Edition. A celebration of pure excellence. Featuring high-definition commemorative graphics and official player-spec performance fabric.
+                   <p className="text-gray-400 text-sm md:text-lg mb-8 md:mb-10 max-w-xl leading-relaxed">
+                      Lionel Messi 2025 MVP Edition. A celebration of excellence. Featuring official player-spec performance fabric.
                    </p>
 
-                   <div className="grid grid-cols-2 gap-6 mb-10 w-full max-w-lg">
-                      <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-brand-crimson flex-shrink-0">
-                           <Zap size={18} />
+                   <div className="grid grid-cols-2 gap-4 md:gap-6 mb-8 md:mb-10 w-full max-w-lg">
+                      <div className="flex items-start gap-3 md:gap-4">
+                        <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-brand-crimson flex-shrink-0">
+                           <Zap size={16} className="md:w-[18px] md:h-[18px]" />
                         </div>
                         <div>
-                           <div className="text-white font-bold text-sm uppercase tracking-wide">Elite Graphics</div>
-                           <div className="text-gray-500 text-[10px] uppercase font-bold tracking-widest mt-1">Heat-Pressed Vinyl</div>
+                           <div className="text-white font-bold text-xs md:text-sm uppercase tracking-wide">Elite Graphics</div>
+                           <div className="text-gray-500 text-[8px] md:text-[10px] uppercase font-bold tracking-widest mt-1">Player Grade</div>
                         </div>
                       </div>
-                      <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-brand-gold flex-shrink-0">
-                           <Trophy size={18} />
+                      <div className="flex items-start gap-3 md:gap-4">
+                        <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-brand-gold flex-shrink-0">
+                           <Trophy size={16} className="md:w-[18px] md:h-[18px]" />
                         </div>
                         <div>
-                           <div className="text-white font-bold text-sm uppercase tracking-wide">Limited Edition</div>
-                           <div className="text-gray-500 text-[10px] uppercase font-bold tracking-widest mt-1">MVP Series 01</div>
+                           <div className="text-white font-bold text-xs md:text-sm uppercase tracking-wide">Limited</div>
+                           <div className="text-gray-500 text-[8px] md:text-[10px] uppercase font-bold tracking-widest mt-1">MVP Series 01</div>
                         </div>
                       </div>
                    </div>
 
-                   <div className="w-full max-w-md mb-12 space-y-4">
+                   <div className="w-full max-w-md mb-8 md:mb-12 space-y-3 md:space-y-4">
                       <div className="flex justify-between items-end">
-                        <div className="flex items-center gap-3">
-                           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_#22c55e]"></div>
-                           <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">Live Drops Remaining</span>
+                        <div className="flex items-center gap-2 md:gap-3">
+                           <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_#22c55e]"></div>
+                           <span className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest">Available Stock</span>
                         </div>
-                        <span className="text-sm font-sport font-bold text-brand-gold">{stockRemaining} Kits Left</span>
+                        <span className="text-xs md:text-sm font-sport font-bold text-brand-gold">{stockRemaining} Kits Left</span>
                       </div>
-                      <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+                      <div className="h-1.5 md:h-2 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
                         <div 
-                          className="h-full bg-gradient-to-r from-brand-crimson to-brand-gold transition-all duration-1000 ease-out shadow-[0_0_15px_rgba(212,13,54,0.5)]" 
+                          className="h-full bg-gradient-to-r from-brand-crimson to-brand-gold transition-all duration-1000 ease-out" 
                           style={{ width: `${(stockRemaining / 50) * 100}%` }}
                         ></div>
                       </div>
                    </div>
 
-                   <div className="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto">
+                   <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-6 w-full sm:w-auto">
                       <Button 
                         onClick={() => navigateTo('product', specialJersey)} 
                         variant="primary" 
-                        className="h-16 px-12 text-lg shadow-[0_20px_40px_-10px_rgba(212,13,54,0.5)] group w-full sm:w-auto"
+                        className="h-14 md:h-16 px-8 md:px-12 text-sm md:text-lg shadow-xl group w-full sm:w-auto"
                       >
                          Secure MVP Kit — ৳{specialJersey.price.toLocaleString()}
-                         <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
+                         <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform md:w-5 md:h-5" />
                       </Button>
                       
-                      <div className="flex items-center gap-4 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">
-                         <div className="flex -space-x-3">
+                      <div className="flex items-center gap-3 text-[9px] md:text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                         <div className="flex -space-x-2 md:-space-x-3">
                             {[1,2,3].map(i => (
-                               <div key={i} className="w-8 h-8 rounded-full border-2 border-brand-dark bg-gray-800 flex items-center justify-center overflow-hidden">
-                                  <Users size={12} className="text-gray-400" />
+                               <div key={i} className="w-6 h-6 md:w-8 md:h-8 rounded-full border-2 border-brand-dark bg-gray-800 flex items-center justify-center">
+                                  <Users size={10} className="text-gray-400 md:w-3 md:h-3" />
                                </div>
                             ))}
                          </div>
-                         <span>Exclusively for premium members</span>
+                         <span>Exclusively for members</span>
                       </div>
                    </div>
                 </div>
@@ -288,29 +271,28 @@ export const Home = () => {
       </section>
 
       {/* Trust Badges */}
-      <section className="py-24 bg-brand-dark relative">
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <section className="py-16 md:py-24 bg-brand-dark relative px-4 md:px-0">
+        <div className="max-w-7xl mx-auto relative z-10">
           <Reveal>
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">The Premium Standard</h2>
-              <div className="w-24 h-1 bg-brand-crimson mx-auto"></div>
+            <div className="text-center mb-12 md:mb-16">
+              <h2 className="text-2xl md:text-4xl font-heading font-bold text-white mb-4">The Premium Standard</h2>
+              <div className="w-16 md:w-24 h-1 bg-brand-crimson mx-auto"></div>
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {[
-                { icon: ShieldCheck, title: "Official Certification", desc: "Verified serial numbers and heat-applied holographic tags on every jersey." },
-                { icon: Truck, title: "Global Express", desc: "Premium logistics ensuring your gear arrives in pristine showroom condition." },
-                { icon: Flame, title: "Elite Tech", desc: "Authentic player-spec fabrics including ADV cooling and moisture management." }
+                { icon: ShieldCheck, title: "Certified Gear", desc: "Verified serial numbers and heat-applied holographic tags on every jersey." },
+                { icon: Truck, title: "Global Shipping", desc: "Express logistics ensuring your gear arrives in pristine showroom condition." },
+                { icon: Flame, title: "Authentic Fabrics", desc: "Authentic player-spec fabrics including ADV cooling and moisture management." }
             ].map((feature, i) => (
-                <Reveal key={i} delay={i * 0.2}>
-                  <div className="group p-10 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-brand-crimson/50 transition-all duration-500 relative overflow-hidden h-full">
-                      <div className="w-16 h-16 bg-gradient-to-br from-white/10 to-white/5 rounded-2xl border border-white/10 flex items-center justify-center mb-8 text-white group-hover:scale-110 group-hover:text-brand-crimson transition-all duration-300">
-                          <feature.icon size={32} strokeWidth={1.2} />
+                <Reveal key={i} delay={i * 0.15}>
+                  <div className="group p-8 md:p-10 rounded-xl bg-white/5 border border-white/10 hover:border-brand-crimson/30 transition-all duration-500 h-full">
+                      <div className="w-12 h-12 md:w-16 md:h-16 bg-white/5 rounded-xl border border-white/10 flex items-center justify-center mb-6 md:mb-8 text-white group-hover:scale-110 transition-all">
+                          <feature.icon size={28} className="md:w-8 md:h-8" />
                       </div>
-                      <h3 className="font-heading font-bold text-xl uppercase tracking-wider text-white mb-4 group-hover:text-brand-crimson transition-colors">{feature.title}</h3>
-                      <p className="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300">{feature.desc}</p>
+                      <h3 className="font-heading font-bold text-lg md:text-xl uppercase tracking-wider text-white mb-3 md:mb-4">{feature.title}</h3>
+                      <p className="text-xs md:text-sm text-gray-400 leading-relaxed">{feature.desc}</p>
                   </div>
                 </Reveal>
             ))}
@@ -320,77 +302,48 @@ export const Home = () => {
 
       {/* Immersion Section */}
       <section className="py-6 bg-brand-dark text-white overflow-hidden relative">
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-brand-dark via-brand-royal/20 to-brand-dark"></div>
         <div className="max-w-[1600px] mx-auto relative z-10">
-          <div className="relative h-[700px] w-full group overflow-hidden">
+          <div className="relative h-[600px] md:h-[700px] w-full group overflow-hidden md:rounded-3xl">
              <img 
                 src={ASSETS.UI.PLAYER_EDITION_IMMERSION} 
-                alt="Player Edition Background" 
-                className="w-full h-full object-cover transition-transform duration-[20s] ease-linear group-hover:scale-110 opacity-40 group-hover:opacity-20" 
+                alt="Immersion" 
+                className="w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-[10s]" 
              />
-             <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent"></div>
+             <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent"></div>
              
              <div className="absolute inset-0 flex items-center">
-               <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                  <div className="space-y-8 relative z-10">
+               <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center">
+                  <div className="space-y-6 md:space-y-8 relative z-10">
                       <Reveal>
-                        <div className="inline-block px-4 py-1 border border-brand-gold/50 text-brand-gold text-xs font-bold uppercase tracking-[0.3em] bg-black/50 backdrop-blur-md rounded-sm">
+                        <div className="inline-block px-3 py-1 border border-brand-gold/50 text-brand-gold text-[10px] font-bold uppercase tracking-[0.3em] bg-black/40 backdrop-blur-md rounded-sm">
                             Premium Tier
                         </div>
                       </Reveal>
                       
-                      <Reveal delay={0.2}>
-                        <h2 className="text-6xl md:text-8xl font-heading font-black leading-none drop-shadow-2xl uppercase">
+                      <Reveal delay={0.15}>
+                        <h2 className="text-5xl md:text-8xl font-heading font-black leading-none uppercase">
                             PLAYER <br/>
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-600">EDITION</span>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">EDITION</span>
                         </h2>
                       </Reveal>
 
-                      <Reveal delay={0.4}>
-                        <p className="text-gray-300 text-lg max-w-md leading-relaxed font-light">
-                            Engineered for the world's elite athletes. Sourced from authentic club specifications. 
-                            Featuring lightweight fabric, streamlined fit, and high-spec moisture management.
+                      <Reveal delay={0.3}>
+                        <p className="text-gray-300 text-sm md:text-lg max-w-md leading-relaxed font-light">
+                            Engineered for elite athletes. Sourced from authentic club specifications. 
                         </p>
                       </Reveal>
 
-                      <Reveal delay={0.6}>
-                        <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                      <Reveal delay={0.45}>
+                        <div className="flex flex-col sm:flex-row gap-4 pt-2">
                           <Button 
                             onClick={() => navigateTo('shop')} 
                             variant="primary" 
-                            className="bg-brand-gold text-brand-dark hover:bg-white hover:text-brand-crimson border-none shadow-[0_0_20px_rgba(207,162,56,0.3)] h-16 px-10"
+                            className="bg-brand-gold text-brand-dark h-14 md:h-16 px-8 md:px-10 font-black"
                           >
-                              Shop Player Spec Kits
+                              Shop Player Spec
                           </Button>
-                          <div className="flex items-center gap-3 text-xs font-bold text-gray-400 px-4 uppercase tracking-widest border border-white/5 bg-white/5 rounded-full">
-                              <CheckCircle size={16} className="text-brand-gold" /> Official Licensed Gear
-                          </div>
                         </div>
                       </Reveal>
-                  </div>
-                  
-                  <div className="hidden md:flex relative h-[600px] w-full items-center justify-center">
-                      <div className="absolute w-[600px] h-[600px] bg-gradient-to-b from-brand-crimson/10 via-purple-900/10 to-transparent blur-[120px] rounded-full animate-pulse-slow"></div>
-                      <div className="animate-float z-10 relative group cursor-pointer perspective-[1200px]">
-                          <div className="absolute -inset-0.5 bg-gradient-to-r from-brand-gold via-brand-crimson to-brand-gold rounded-[2.5rem] blur opacity-30 group-hover:opacity-70 transition duration-1000"></div>
-                          <div className="relative w-[360px] h-[500px] rounded-[2.2rem] bg-[#0F0F13] border border-white/10 shadow-2xl overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] [transform:rotateY(-15deg)_rotateX(8deg)] group-hover:[transform:rotateY(0deg)_rotateX(0deg)_scale(1.05)]">
-                              <div className="absolute inset-0 z-20 bg-gradient-to-tr from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none"></div>
-                              <div className="absolute inset-0 z-0">
-                                  <img 
-                                      src={ASSETS.PRODUCTS.BARCELONA_HOME}
-                                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
-                                      alt="Collector Jersey"
-                                  />
-                                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-                              </div>
-                              <div className="absolute bottom-0 left-0 w-full p-10 z-30 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                                  <div className="text-brand-gold text-[10px] font-bold uppercase tracking-[0.4em] mb-2">Vaporknit Series</div>
-                                  <h3 className="text-5xl font-heading font-black text-white mb-1 tracking-tighter leading-none drop-shadow-lg">
-                                      FCB <span className="text-brand-crimson">25/26</span>
-                                  </h3>
-                              </div>
-                          </div>
-                      </div>
                   </div>
                </div>
              </div>

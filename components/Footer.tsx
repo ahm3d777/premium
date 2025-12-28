@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Facebook, Instagram, Twitter, Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
 import { Button } from './UI';
@@ -15,22 +16,19 @@ export const Footer = () => {
           {/* About */}
           <div className="space-y-8">
             {/* Premium Modern Logo */}
-            <div className="flex items-center gap-3">
-              <div className="relative w-10 h-10 flex items-center justify-center">
-                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-lg grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
-                  <path d="M32 2L58 14V34C58 50 46 60 32 64C18 60 6 50 6 34V14L32 2Z" fill="#1E293B" stroke="currentColor" strokeWidth="1.5" />
-                  <path d="M32 2V64C46 60 58 50 58 34V14L32 2Z" fill="black" fillOpacity="0.2" />
-                  <g transform="translate(17, 22)">
-                     <path d="M0 0H8C12 0 14 2 14 5C14 7 12 9 9 9H2V11H10C13 11 15 13 15 16C15 19 13 21 9 21H0V0Z" fill="white" />
-                     <path d="M18 0H24C29 0 32 4 32 10.5C32 17 29 21 24 21H18V0ZM22 17H24C26.5 17 28 15 28 10.5C28 6 26.5 4 24 4H22V17Z" fill="white" />
-                  </g>
+            <div className="flex items-center gap-3 group cursor-pointer">
+              <div className="relative w-12 h-12 flex items-center justify-center">
+                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-lg transition-all duration-500 group-hover:scale-110">
+                   <path d="M32 2L54 12V32C54 48 44 58 32 62C20 58 10 48 10 32V12L32 2Z" fill="#1E293B" stroke="white" strokeWidth="1.5" strokeOpacity="0.2" />
+                   <path d="M26 20V44M26 20H38C42 20 44 22 44 26C44 30 42 32 38 32H26" stroke="white" strokeWidth="3" strokeLinecap="square" />
+                   <path d="M34 32L44 44" stroke="#D40D36" strokeWidth="3" strokeLinecap="square" />
                 </svg>
               </div>
               <div className="flex flex-col justify-center">
-                <div className="font-heading font-black text-xl leading-none tracking-tighter">
+                <div className="font-heading font-black text-2xl leading-none tracking-tighter">
                   PREMIUM<span className="text-brand-crimson">KITS</span>
                 </div>
-                <div className="text-[9px] uppercase tracking-[0.3em] font-bold text-gray-500">Official Store</div>
+                <div className="text-[9px] uppercase tracking-[0.4em] font-bold text-gray-500">Bangladesh</div>
               </div>
             </div>
             

@@ -1,19 +1,25 @@
+
 import React, { useState, useEffect } from 'react';
 import { ShoppingBag, Search, Menu, X, User, Heart, ChevronRight } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 
 const MinimalLogo = ({ isDark }: { isDark: boolean }) => (
-  <div className="flex items-center gap-2 group cursor-pointer">
-    <div className={`transition-colors duration-300 ${isDark ? 'text-brand-dark' : 'text-white'}`}>
-       <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M32 2L58 14V34C58 50 46 60 32 64C18 60 6 50 6 34V14L32 2Z" fill="currentColor" fillOpacity="0.1" stroke="currentColor" strokeWidth="2" />
-          <path d="M32 12V52" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          <path d="M16 32H48" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  <div className="flex items-center gap-2.5 md:gap-3 group cursor-pointer">
+    <div className={`relative transition-all duration-500 group-hover:scale-110 ${isDark ? 'text-brand-dark' : 'text-white'}`}>
+       {/* New Minimalist PK Crest */}
+       <svg width="32" height="32" className="md:w-9 md:h-9" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M32 2L54 12V32C54 48 44 58 32 62C20 58 10 48 10 32V12L32 2Z" fill="currentColor" fillOpacity="0.05" stroke="currentColor" strokeWidth="2.5" />
+          <path d="M26 20V44M26 20H38C42 20 44 22 44 26C44 30 42 32 38 32H26" stroke="currentColor" strokeWidth="3.5" strokeLinecap="square" />
+          <path d="M34 32L44 44" stroke="brand-crimson" strokeWidth="3.5" strokeLinecap="square" className="text-brand-crimson" />
        </svg>
+       <div className="absolute -top-1 -right-1 w-2 h-2 bg-brand-crimson rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
     </div>
     <div className="flex flex-col">
-      <span className={`font-heading font-bold text-lg leading-none tracking-tight transition-colors duration-300 ${isDark ? 'text-brand-dark' : 'text-white'}`}>
+      <span className={`font-heading font-black text-lg md:text-xl leading-none tracking-tighter transition-colors duration-300 ${isDark ? 'text-brand-dark' : 'text-white'}`}>
         PREMIUM<span className="text-brand-crimson">KITS</span>
+      </span>
+      <span className={`text-[7px] md:text-[8px] font-bold uppercase tracking-[0.4em] transition-opacity duration-300 ${isDark ? 'text-gray-400 opacity-100' : 'text-white/60 opacity-80'}`}>
+        Authentic Gear
       </span>
     </div>
   </div>
@@ -25,7 +31,6 @@ export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
-  // Logic: Transparent on Home (when at top), White on scroll or other pages
   const isHome = currentPage === 'home';
   const isTransparent = isHome && !scrolled && !isMobileMenuOpen;
 
@@ -37,10 +42,9 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Visual Styles
   const navBgClass = isTransparent 
-    ? 'bg-transparent border-transparent py-6' 
-    : 'bg-white/80 backdrop-blur-md shadow-sm border-gray-100 py-4';
+    ? 'bg-transparent border-transparent py-4 md:py-6' 
+    : 'bg-white/90 backdrop-blur-xl shadow-sm border-gray-100 py-3 md:py-4';
   
   const textColorClass = isTransparent ? 'text-white' : 'text-brand-dark';
   const hoverBgClass = isTransparent ? 'hover:bg-white/10' : 'hover:bg-gray-100';
@@ -54,24 +58,23 @@ export const Navbar = () => {
 
   return (
     <>
-      {/* Search Overlay */}
-      <div className={`fixed inset-0 z-[60] bg-white/98 backdrop-blur-xl transition-all duration-500 flex flex-col items-center justify-center ${searchOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
-        <button onClick={() => setSearchOpen(false)} className="absolute top-8 right-8 p-2 hover:bg-gray-100 rounded-full transition-colors">
-            <X size={32} className="text-brand-dark" />
+      <div className={`fixed inset-0 z-[60] bg-white/98 backdrop-blur-3xl transition-all duration-500 flex flex-col items-center justify-center ${searchOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
+        <button onClick={() => setSearchOpen(false)} className="absolute top-6 right-6 md:top-8 md:right-8 p-3 hover:bg-gray-100 rounded-full transition-colors">
+            <X size={28} className="text-brand-dark md:w-8 md:h-8" />
         </button>
         <div className="w-full max-w-2xl px-6">
-            <h2 className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-8 text-center">What are you looking for?</h2>
-            <div className="relative group mb-12">
+            <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6 text-center">What are you looking for?</h2>
+            <div className="relative group mb-8 md:mb-12">
                 <input 
                     type="text" 
                     placeholder="Search products..." 
                     autoFocus={searchOpen}
-                    className="w-full text-center text-4xl md:text-5xl font-heading font-bold text-brand-dark bg-transparent border-b-2 border-gray-100 py-6 focus:outline-none focus:border-brand-dark transition-all placeholder:text-gray-200"
+                    className="w-full text-center text-3xl md:text-5xl font-heading font-bold text-brand-dark bg-transparent border-b-2 border-gray-100 py-4 md:py-6 focus:outline-none focus:border-brand-dark transition-all placeholder:text-gray-200"
                 />
             </div>
-            <div className="flex flex-wrap justify-center gap-3">
+            <div className="flex flex-wrap justify-center gap-2 md:gap-3">
                 {['Messi', 'Real Madrid', 'Retro', '2025 Kits'].map(tag => (
-                    <button key={tag} className="px-6 py-2 rounded-full bg-gray-50 border border-gray-100 text-sm font-medium text-gray-600 hover:bg-brand-dark hover:text-white transition-all">
+                    <button key={tag} className="px-5 py-2 rounded-full bg-gray-50 border border-gray-100 text-xs md:text-sm font-medium text-gray-600 hover:bg-brand-dark hover:text-white transition-all">
                         {tag}
                     </button>
                 ))}
@@ -82,15 +85,13 @@ export const Navbar = () => {
       <header 
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${navBgClass}`}
       >
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
           <div className="flex justify-between items-center">
             
-            {/* 1. Left: Brand */}
-            <div onClick={() => navigateTo('home')} className="z-50 relative">
+            <div onClick={() => navigateTo('home')} className="z-50 relative flex-shrink-0">
               <MinimalLogo isDark={!isTransparent} />
             </div>
 
-            {/* 2. Center: Navigation */}
             <nav className="hidden lg:flex items-center gap-10">
                 {navLinks.map((link) => (
                     <button 
@@ -104,13 +105,12 @@ export const Navbar = () => {
                 ))}
             </nav>
 
-            {/* 3. Right: Icons */}
-            <div className={`flex items-center gap-1 md:gap-2 z-50 transition-colors duration-300 ${textColorClass}`}>
+            <div className={`flex items-center gap-0.5 md:gap-2 z-50 transition-colors duration-300 ${textColorClass}`}>
                 <button 
                     onClick={() => setSearchOpen(true)}
-                    className={`p-3 rounded-full transition-all duration-300 ${hoverBgClass}`}
+                    className={`p-2.5 md:p-3 rounded-full transition-all duration-300 ${hoverBgClass}`}
                 >
-                    <Search size={20} strokeWidth={1.5} />
+                    <Search size={20} strokeWidth={1.5} className="w-5 h-5 md:w-[20px] md:h-[20px]" />
                 </button>
                 
                 <button 
@@ -122,9 +122,9 @@ export const Navbar = () => {
 
                 <button 
                     onClick={() => navigateTo('cart')}
-                    className={`p-3 rounded-full transition-all duration-300 relative ${hoverBgClass}`}
+                    className={`p-2.5 md:p-3 rounded-full transition-all duration-300 relative ${hoverBgClass}`}
                 >
-                    <ShoppingBag size={20} strokeWidth={1.5} />
+                    <ShoppingBag size={20} strokeWidth={1.5} className="w-5 h-5 md:w-[20px] md:h-[20px]" />
                     {cartCount > 0 && (
                         <span className="absolute top-2 right-2 w-2 h-2 bg-brand-crimson rounded-full ring-2 ring-white"></span>
                     )}
@@ -132,9 +132,9 @@ export const Navbar = () => {
 
                 <button 
                     onClick={() => setIsMobileMenuOpen(true)}
-                    className={`lg:hidden p-3 rounded-full transition-all duration-300 ${hoverBgClass}`}
+                    className={`lg:hidden p-2.5 md:p-3 rounded-full transition-all duration-300 ${hoverBgClass}`}
                 >
-                    <Menu size={24} strokeWidth={1.5} />
+                    <Menu size={24} strokeWidth={1.5} className="w-6 h-6 md:w-[24px] md:h-[24px]" />
                 </button>
             </div>
 
@@ -142,62 +142,56 @@ export const Navbar = () => {
         </div>
       </header>
 
-      {/* Mobile Menu Drawer */}
       <div 
         className={`fixed inset-0 z-[70] lg:hidden transition-all duration-500 ${isMobileMenuOpen ? 'visible' : 'invisible'}`}
       >
-        {/* Backdrop */}
         <div 
-            className={`absolute inset-0 bg-brand-dark/20 backdrop-blur-sm transition-opacity duration-500 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0'}`}
+            className={`absolute inset-0 bg-brand-dark/40 backdrop-blur-md transition-opacity duration-500 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0'}`}
             onClick={() => setIsMobileMenuOpen(false)}
         />
 
-        {/* Drawer Panel */}
         <div className={`absolute top-0 right-0 w-[85%] max-w-sm h-full bg-white shadow-2xl transform transition-transform duration-500 cubic-bezier(0.22, 1, 0.36, 1) ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
             <div className="flex flex-col h-full">
                 
-                {/* Drawer Header */}
-                <div className="flex items-center justify-between p-8">
-                    <span className="font-heading font-bold text-xl text-brand-dark tracking-tight">MENU</span>
+                <div className="flex items-center justify-between p-6 md:p-8 border-b border-gray-50">
+                    <span className="font-heading font-black text-2xl text-brand-dark tracking-tighter">EXPLORE</span>
                     <button 
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="p-2 bg-gray-50 rounded-full hover:bg-gray-100 transition-colors text-brand-dark"
+                        className="p-3 bg-gray-50 rounded-full hover:bg-gray-100 transition-colors text-brand-dark"
                     >
                         <X size={20} />
                     </button>
                 </div>
 
-                {/* Navigation Links */}
-                <div className="flex-1 overflow-y-auto px-8 py-4 space-y-2">
+                <div className="flex-1 overflow-y-auto px-6 md:px-8 py-6 space-y-2">
                     {navLinks.map((link, idx) => (
                         <button
                             key={link.label}
                             onClick={() => { link.action(); setIsMobileMenuOpen(false); }}
-                            className={`flex items-center justify-between w-full py-4 text-left group border-b border-gray-50 last:border-0`}
+                            className={`flex items-center justify-between w-full py-4 text-left group border-b border-gray-50 last:border-0 active:bg-gray-50 px-2 -mx-2 rounded-xl transition-colors`}
                             style={{ 
                                 opacity: isMobileMenuOpen ? 1 : 0, 
-                                transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(10px)',
-                                transition: `all 0.4s ease-out ${idx * 0.05 + 0.1}s`
+                                transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(15px)',
+                                transition: `all 0.4s ease-out ${idx * 0.08 + 0.15}s`
                             }}
                         >
-                            <span className={`font-heading font-bold text-xl transition-colors ${link.active ? 'text-brand-crimson' : 'text-brand-dark group-hover:text-gray-600'}`}>
+                            <span className={`font-heading font-bold text-xl md:text-2xl transition-colors ${link.active ? 'text-brand-crimson' : 'text-brand-dark group-hover:text-gray-600'}`}>
                                 {link.label}
                             </span>
-                            <ChevronRight size={18} className="text-gray-300 group-hover:text-brand-dark transition-colors" />
+                            <ChevronRight size={18} className={`transition-colors ${link.active ? 'text-brand-crimson' : 'text-gray-300'}`} />
                         </button>
                     ))}
                 </div>
 
-                {/* Drawer Footer */}
-                <div className="p-8 bg-gray-50 space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                        <button onClick={() => { navigateTo('wishlist'); setIsMobileMenuOpen(false); }} className="flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-sm border border-gray-100 active:scale-95 transition-transform">
+                <div className="p-6 md:p-8 bg-gray-50 border-t border-gray-100">
+                    <div className="grid grid-cols-2 gap-3 md:gap-4">
+                        <button onClick={() => { navigateTo('wishlist'); setIsMobileMenuOpen(false); }} className="flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-sm border border-gray-100 active:scale-95 transition-all">
                              <Heart size={20} className="mb-2 text-brand-dark" />
-                             <span className="text-xs font-bold uppercase tracking-wide text-gray-600">Wishlist</span>
+                             <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Wishlist</span>
                         </button>
-                        <button onClick={() => { /* Account logic */ setIsMobileMenuOpen(false); }} className="flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-sm border border-gray-100 active:scale-95 transition-transform">
+                        <button onClick={() => { /* Account logic */ setIsMobileMenuOpen(false); }} className="flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-sm border border-gray-100 active:scale-95 transition-all">
                              <User size={20} className="mb-2 text-brand-dark" />
-                             <span className="text-xs font-bold uppercase tracking-wide text-gray-600">Account</span>
+                             <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Account</span>
                         </button>
                     </div>
                 </div>
