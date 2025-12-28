@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { ShoppingBag, Search, Menu, X, Heart, ChevronRight } from 'lucide-react';
+import { ShoppingBag, Search, Menu, X, User, Heart, ChevronRight } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 
 const MinimalLogo = ({ isDark }: { isDark: boolean }) => (
@@ -88,7 +88,7 @@ export const Navbar = () => {
         </div>
       </div>
 
-      <header className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${navBgClass}`}>
+      <header className={`fixed top-0 left-0 w-full z-100 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${navBgClass}`}>
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           <div className="flex justify-between items-center">
             

@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { Product, CartItem, PageView } from '../types';
 import { MOCK_PRODUCTS } from '../constants';
@@ -30,7 +31,7 @@ interface StoreContextType {
   // Wishlist
   wishlist: string[];
   toggleWishlist: (productId: string) => void;
-
+  
   // UI
   notifications: Notification[];
   showNotification: (message: string, type?: 'success' | 'info') => void;
@@ -39,17 +40,40 @@ interface StoreContextType {
 
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
-interface StoreProviderProps {
-  children: ReactNode;
-}
-
-export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
+export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [currentPage, setCurrentPage] = useState<PageView>('home');
   const [currentProduct, setCurrentProduct] = useState<Product | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>('All');
-  const [cart, setCart] = useState<CartItem[]>([]);
-  const [wishlist, setWishlist] = useState<string[]>([]);
+  
+  // Initialize state from localStorage
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    try {
+      const saved = localStorage.getItem('pk_cart');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+  
+  const [wishlist, setWishlist] = useState<string[]>(() => {
+    try {
+      const saved = localStorage.getItem('pk_wishlist');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
   const [notifications, setNotifications] = useState<Notification[]>([]);
+
+  // Persistence Effects
+  useEffect(() => {
+    localStorage.setItem('pk_cart', JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
+    localStorage.setItem('pk_wishlist', JSON.stringify(wishlist));
+  }, [wishlist]);
 
   const navigateTo = (page: PageView, product?: Product) => {
     window.scrollTo(0, 0);
@@ -64,9 +88,7 @@ export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
   const showNotification = (message: string, type: 'success' | 'info' = 'success') => {
     const id = Date.now();
     setNotifications(prev => [...prev, { message, type, id }]);
-    setTimeout(() => {
-      removeNotification(id);
-    }, 3000);
+    setTimeout(() => removeNotification(id), 3000);
   };
 
   const removeNotification = (id: number) => {
@@ -92,8 +114,7 @@ export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
   const updateQuantity = (cartId: string, delta: number) => {
     setCart(prev => prev.map(item => {
       if (item.cartId === cartId) {
-        const newQty = Math.max(1, item.quantity + delta);
-        return { ...item, quantity: newQty };
+        return { ...item, quantity: Math.max(1, item.quantity + delta) };
       }
       return item;
     }));
@@ -104,23 +125,14 @@ export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
   const toggleWishlist = (productId: string) => {
     setWishlist(prev => {
       const isRemoving = prev.includes(productId);
-      const product = MOCK_PRODUCTS.find(p => p.id === productId);
-      const name = product ? product.name : 'Item';
-      
-      showNotification(
-        isRemoving ? `Removed from Wishlist` : `Added to Wishlist`, 
-        'info'
-      );
-      
-      return isRemoving 
-        ? prev.filter(id => id !== productId) 
-        : [...prev, productId];
+      showNotification(isRemoving ? `Removed from Wishlist` : `Added to Wishlist`, 'info');
+      return isRemoving ? prev.filter(id => id !== productId) : [...prev, productId];
     });
   };
 
   const cartTotal = cart.reduce((acc, item) => {
     let price = item.price;
-    if (item.customization) price += 800; // Customization fee
+    if (item.customization) price += 800;
     return acc + (price * item.quantity);
   }, 0);
 

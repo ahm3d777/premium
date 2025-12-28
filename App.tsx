@@ -25,15 +25,11 @@ const FootballIcon: React.FC<FootballIconProps> = ({ className = "text-brand-dar
 );
 
 const SplashScreen = () => (
-  <div className="fixed inset-0 z-[100] bg-brand-dark flex flex-col items-center justify-center animate-fade-out" style={{ animationDelay: '1.2s', pointerEvents: 'none' }}>
-    
+  <div className="fixed inset-0 z-[300] bg-brand-dark flex flex-col items-center justify-center animate-fade-out" style={{ animationDelay: '1.2s', pointerEvents: 'none' }}>
     <div className="relative mb-14">
-       {/* Ambient Glow */}
        <div className="absolute inset-0 bg-brand-crimson blur-[120px] opacity-20 animate-pulse-slow"></div>
        <div className="absolute -inset-20 bg-brand-gold blur-[150px] opacity-10 animate-float"></div>
-       
        <div className="relative w-44 h-44 md:w-52 md:h-52 flex items-center justify-center z-10">
-          {/* New Luxury PK Crest */}
           <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-[0_0_30px_rgba(212,13,54,0.4)]">
               <defs>
                 <linearGradient id="crest-gradient" x1="32" y1="0" x2="32" y2="64" gradientUnits="userSpaceOnUse">
@@ -41,30 +37,16 @@ const SplashScreen = () => (
                   <stop offset="0.5" stopColor="#A50044" />
                   <stop offset="1" stopColor="#050505" />
                 </linearGradient>
-                <linearGradient id="gold-shimmer" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-                   <stop stopColor="#CFA238" />
-                   <stop offset="0.5" stopColor="#FAFAFA" />
-                   <stop offset="1" stopColor="#CFA238" />
-                </linearGradient>
               </defs>
-              
-              {/* Shield Silhouette */}
               <path d="M32 2L58 14V34C58 50 46 60 32 64C18 60 6 50 6 34V14L32 2Z" fill="url(#crest-gradient)" stroke="white" strokeWidth="0.5" strokeOpacity="0.2" />
-              
-              {/* Abstract P-K Interlock */}
               <g className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
-                {/* Letter P shape */}
                 <path d="M24 18V46M24 18H36C40 18 43 20 43 24.5C43 29 40 31 36 31H24" stroke="white" strokeWidth="4" strokeLinecap="square" strokeLinejoin="miter" />
-                {/* Letter K kick shape */}
                 <path d="M34 31L44 46" stroke="#CFA238" strokeWidth="4" strokeLinecap="square" />
               </g>
-              
-              {/* Center Detail Star */}
               <path d="M32 5L34 9H30L32 5Z" fill="#CFA238" className="animate-pulse" />
           </svg>
        </div>
     </div>
-
     <div className="flex flex-col items-center gap-1 mb-16 text-center px-6">
       <h1 className="font-heading font-black text-4xl md:text-5xl tracking-[0.15em] leading-none text-white drop-shadow-lg uppercase">
         PREMIUM<span className="text-brand-crimson">KITS</span>
@@ -77,12 +59,10 @@ const SplashScreen = () => (
          <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-brand-gold/40"></div>
       </div>
     </div>
-    
     <div className="relative w-64 md:w-80">
       <div className="h-[2px] w-full bg-white/5 rounded-full overflow-hidden">
         <div className="h-full bg-gradient-to-r from-brand-crimson via-brand-gold to-brand-crimson w-full origin-left animate-load-progress" style={{ animationDuration: '1.2s' }}></div>
       </div>
-      
       <div className="absolute top-1/2 w-6 h-6 text-white animate-ball-roll" style={{ animationDuration: '1.2s' }}>
         <FootballIcon className="text-white drop-shadow-2xl" />
       </div>
@@ -92,23 +72,15 @@ const SplashScreen = () => (
 
 const MainContent = () => {
   const { currentPage } = useStore();
-
   const renderPage = () => {
     switch (currentPage) {
-      case 'home':
-        return <Home />;
-      case 'shop':
-        return <Shop />;
-      case 'product':
-        return <ProductDetail />;
-      case 'cart':
-        return <Cart />;
-      case 'wishlist':
-        return <Wishlist />;
-      case 'checkout-success':
-        return <CheckoutSuccess />;
-      default:
-        return <Home />;
+      case 'home': return <Home />;
+      case 'shop': return <Shop />;
+      case 'product': return <ProductDetail />;
+      case 'cart': return <Cart />;
+      case 'wishlist': return <Wishlist />;
+      case 'checkout-success': return <CheckoutSuccess />;
+      default: return <Home />;
     }
   };
 
@@ -126,11 +98,8 @@ const MainContent = () => {
 
 const App = () => {
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1400); 
+    const timer = setTimeout(() => setLoading(false), 1400); 
     return () => clearTimeout(timer);
   }, []);
 
